@@ -57,12 +57,15 @@ class CliGuess
     ox7=bd[0]+bd[4]+bd[8]
     ox8=bd[2]+bd[4]+bd[6]
 
+
+
     case ox1
       when "XXX"
         comp_win
       when "OOO"
         human_win
       else
+        return false
     end
     case ox2
       when "XXX"
@@ -70,6 +73,7 @@ class CliGuess
       when "OOO"
         human_win
       else
+        return false
     end
     case ox3
       when "XXX"
@@ -77,7 +81,10 @@ class CliGuess
       when "OOO"
         human_win
       else
+        return false
     end
+
+    return true
 
   end
   # END DEF ==============================================================================
@@ -185,14 +192,22 @@ class CliGuess
       comp_move = -1
       if !chk_oxwin( board )
         print "OK, you moved<#{human_move}> ...... "
-      else
         board = get_oxcomp( board, comp_move )
 
+        if chk_oxwin( board )
+          break
+        end
+
         #NOW each subsequent move by HUMAN stored in HUMAN_MOVE
-        while board == empty_board && !chk_oxwin( board )
+        while board == empty_board
           case human_move = get_oxmove( board, "" )
             when 1..9
               human_move = human_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
+
+              if chk_oxwin( board )
+                break
+              end
+
               print "OK, you moved<#{human_move}> ...... "
               board = get_oxcomp( board, comp_move )
             else
