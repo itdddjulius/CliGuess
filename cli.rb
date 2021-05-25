@@ -30,10 +30,54 @@ class CliGuess
   # END DEF ==============================================================================
 
 
+  def self.comp_win
+    puts "=============================="
+    puts "====>{([As USUAL I WIN])}<===="
+    puts "=============================="
+  end
+
+  def self.human_win
+    puts "======================="
+    puts "====>{([YOU WIN])}<===="
+    puts "======================="
+  end
+
+
+
   # BEG DEF ==============================================================================
   # BEG DEFchk_oxwin - DETERMINE if OXBOARD in WIN STATE =================================
   # BEG DEF ==============================================================================
   def self.chk_oxwin( bd )
+    ox1=bd[0]+bd[1]+bd[2]
+    ox2=bd[3]+bd[4]+bd[5]
+    ox3=bd[6]+bd[7]+bd[8]
+    ox4=bd[0]+bd[3]+bd[6]
+    ox5=bd[1]+bd[4]+bd[7]
+    ox6=bd[2]+bd[5]+bd[8]
+    ox7=bd[0]+bd[4]+bd[8]
+    ox8=bd[2]+bd[4]+bd[6]
+
+    case ox1
+      when "XXX"
+        comp_win
+      when "OOO"
+        human_win
+      else
+    end
+    case ox2
+      when "XXX"
+        comp_win
+      when "OOO"
+        human_win
+      else
+    end
+    case ox3
+      when "XXX"
+        comp_win
+      when "OOO"
+        human_win
+      else
+    end
 
   end
   # END DEF ==============================================================================
@@ -139,19 +183,22 @@ class CliGuess
       first_move = get_oxmove( board, "" ) #Logically we MUST OBTAIN AT LEATS (1) MOVE
       human_move = first_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
       comp_move = -1
-      print "OK, you moved<#{human_move}> ...... "
-      board = get_oxcomp( board, comp_move )
+      if !chk_oxwin( board )
+        print "OK, you moved<#{human_move}> ...... "
+      else
+        board = get_oxcomp( board, comp_move )
 
-      #NOW each subsequent move by HUMAN stored in HUMAN_MOVE
-      while board == empty_board
-        case human_move = get_oxmove( board, "" )
-          when 1..9
-            human_move = human_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
-            print "OK, you moved<#{human_move}> ...... "
-            board = get_oxcomp( board, comp_move )
-          else
-        end #END - CASE ==================================================
-      end #END - WHILE ===================================================
+        #NOW each subsequent move by HUMAN stored in HUMAN_MOVE
+        while board == empty_board && !chk_oxwin( board )
+          case human_move = get_oxmove( board, "" )
+            when 1..9
+              human_move = human_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
+              print "OK, you moved<#{human_move}> ...... "
+              board = get_oxcomp( board, comp_move )
+            else
+          end #END - CASE ==================================================
+        end #END - WHILE ===================================================
+      end #END - IF ========================================================
   end
   # END DEF ==============================================================================
 
