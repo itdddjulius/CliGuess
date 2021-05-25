@@ -207,6 +207,11 @@ class CliGuess
                 end
 
             end #END - CASE ==================================================
+
+            if !chk_oxwin( board )
+              puts "~"
+            end
+
           end #END - WHILE ===================================================
         end
 
