@@ -323,7 +323,10 @@ class CliGuess
                     end
                 end #END - CASE OX - ox4, ox5, ox6
             end
-        end
+        end #END - CASE - MAIN CASE
+
+        chk_oxwin( bd )
+
     end
 
 
