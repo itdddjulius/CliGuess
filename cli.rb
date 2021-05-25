@@ -140,9 +140,9 @@ class CliGuess
                   when ".XX"
                     oxcomp = 0
                   else
-                    case ox5 #(1),(4),(9)
+                    case ox5 #(1),(4),(7)
                       when "XX."
-                        oxcomp = 9
+                        oxcomp = 7
                       when "X.X"
                         oxcomp = 4
                       when ".XX"
@@ -219,9 +219,9 @@ class CliGuess
                   when ".OO"
                     oxcomp = 0
                   else
-                    case ox5 #(1),(4),(9)
+                    case ox5 #(1),(4),(7)
                     when "OO."
-                        oxcomp = 9
+                        oxcomp = 7
                       when "O.O"
                         oxcomp = 4
                       when ".OO"
