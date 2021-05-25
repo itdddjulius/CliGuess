@@ -105,6 +105,66 @@ class CliGuess
     ox8=bd[2]+bd[4]+bd[6]
 
 
+    #OX - Direct BATTLE MAKE COMP( X ) win
+    case ox1
+      when "XX."
+        oxcomp = 2
+      when "X.X"
+        oxcomp = 1
+      when ".XX"
+        oxcomp = 0
+      else
+        case ox2
+          when "XX."
+            oxcomp = 5
+          when "X.X"
+            oxcomp = 4
+          when ".XX"
+            oxcomp = 3
+          else
+            case ox3
+              when "XX."
+                oxcomp = 8
+              when "X.X"
+                oxcomp = 5
+              when ".XX"
+                oxcomp = 2
+              else
+            end
+        end
+    end
+
+    #OX - Direct BATTLE STOP HUMAN( O ) win
+    case ox1
+    when "OO."
+        oxcomp = 2
+      when "O.O"
+        oxcomp = 1
+      when ".OO"
+        oxcomp = 0
+      else
+        case ox2
+        when "OO."
+            oxcomp = 5
+          when "O.O"
+            oxcomp = 4
+          when ".OO"
+            oxcomp = 3
+          else
+            case ox3
+            when "OO."
+                oxcomp = 8
+              when "O.O"
+                oxcomp = 5
+              when ".OO"
+                oxcomp = 2
+              else
+            end
+        end
+    end
+
+
+    #OX - EVALUATE other BOARD states
     case  ox1+ox2+ox3
       when "..."+".O."+"..."
         oxcomp = 0
