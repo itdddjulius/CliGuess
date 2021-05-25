@@ -323,11 +323,9 @@ class CliGuess
                     end
                 end #END - CASE OX - ox4, ox5, ox6
             end
-        end #END - CASE - MAIN CASE
+        end
 
-        chk_oxwin( bd )
-
-    end
+    end  #END - CASE - MAIN CASE
 
 
 
@@ -344,7 +342,12 @@ class CliGuess
 
     bd[ oxcomp ] = "X"
     bd = display_oxboard( bd )
+
+    chk_oxwin( bd )
+
     return bd
+
+
   end
   # END DEF ==============================================================================
 
