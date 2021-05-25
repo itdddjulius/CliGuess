@@ -195,7 +195,7 @@ class CliGuess
         board = get_oxcomp( board, comp_move )
 
         if chk_oxwin( board )
-          break
+          return
         end
 
         #NOW each subsequent move by HUMAN stored in HUMAN_MOVE
@@ -205,7 +205,7 @@ class CliGuess
               human_move = human_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
 
               if chk_oxwin( board )
-                break
+                return
               end
 
               print "OK, you moved<#{human_move}> ...... "
