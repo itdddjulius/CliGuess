@@ -194,25 +194,22 @@ class CliGuess
         print "OK, you moved<#{human_move}> ...... "
         board = get_oxcomp( board, comp_move )
 
-        if chk_oxwin( board )
-          return
+        if !chk_oxwin( board )
+          #NOW each subsequent move by HUMAN stored in HUMAN_MOVE
+          while board == empty_board
+            case human_move = get_oxmove( board, "" )
+              when 1..9
+                human_move = human_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
+
+                if !chk_oxwin( board )
+                  print "OK, you moved<#{human_move}> ...... "
+                  board = get_oxcomp( board, comp_move )
+                end
+
+            end #END - CASE ==================================================
+          end #END - WHILE ===================================================
         end
 
-        #NOW each subsequent move by HUMAN stored in HUMAN_MOVE
-        while board == empty_board
-          case human_move = get_oxmove( board, "" )
-            when 1..9
-              human_move = human_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
-
-              if chk_oxwin( board )
-                return
-              end
-
-              print "OK, you moved<#{human_move}> ...... "
-              board = get_oxcomp( board, comp_move )
-            else
-          end #END - CASE ==================================================
-        end #END - WHILE ===================================================
       end #END - IF ========================================================
   end
   # END DEF ==============================================================================
