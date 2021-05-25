@@ -174,6 +174,149 @@ class CliGuess
                                     oxcomp = 2
                                   else
 
+                                    #OX - Direct BATTLE STOP HUMAN( O ) win
+                                    case ox1
+                                    when "OO."
+                                        oxcomp = 2
+                                      when "O.O"
+                                        oxcomp = 1
+                                      when ".OO"
+                                        oxcomp = 0
+                                      else
+                                        case ox2
+                                        when "OO."
+                                            oxcomp = 5
+                                          when "O.O"
+                                            oxcomp = 4
+                                          when ".OO"
+                                            oxcomp = 3
+                                          else
+                                            case ox3
+                                            when "OO."
+                                                oxcomp = 8
+                                              when "O.O"
+                                                oxcomp = 5
+                                              when ".OO"
+                                                oxcomp = 2
+                                              else
+
+                                                #OX - ox4, ox5, ox6
+                                                case ox4 #(0),(3),(6)
+                                                when "OO."
+                                                    oxcomp = 6
+                                                  when "O.O"
+                                                    oxcomp = 3
+                                                  when ".OO"
+                                                    oxcomp = 0
+                                                  else
+                                                    case ox5 #(1),(4),(7)
+                                                    when "OO."
+                                                        oxcomp = 7
+                                                      when "O.O"
+                                                        oxcomp = 4
+                                                      when ".OO"
+                                                        oxcomp = 1
+                                                      else
+                                                        case ox6 #(2),(5),(8)
+                                                        when "OO."
+                                                            oxcomp = 8
+                                                          when "O.O"
+                                                            oxcomp = 5
+                                                          when ".OO"
+                                                            oxcomp = 2
+                                                          else
+                                                            #OX - ox7, ox8
+                                                            case ox7 #(0),(4),(8)
+                                                            when "OO."
+                                                                oxcomp = 8
+                                                              when "O.O"
+                                                                oxcomp = 4
+                                                              when ".OO"
+                                                                oxcomp = 0
+                                                              else
+                                                                case ox8 #(2),(4),(6)
+                                                                when "OO."
+                                                                    oxcomp = 6
+                                                                  when "O.O"
+                                                                    oxcomp = 4
+                                                                  when ".OO"
+                                                                    oxcomp = 2
+                                                                  else
+
+                                                                    #OX - EVALUATE other BOARD states
+                                                                    case  ox1+ox2+ox3
+                                                                      when "..."+".O."+"..."
+                                                                        oxcomp = 0
+                                                                      when "X.."+"..O"+"..O"
+                                                                        oxcomp = 2
+                                                                      when "X.."+"..O"+".O."
+                                                                        oxcomp = 4
+                                                                      when "X.."+"..O"+"O.."
+                                                                        oxcomp = 4
+
+                                                                      when "X.."+".O."+".O."
+                                                                        oxcomp = 1
+
+
+                                                                      when "X.."+"O.."+"O.."
+                                                                        oxcomp = 4
+                                                                      when "X.."+".O."+"..O"
+                                                                        oxcomp = 2
+                                                                      when "X.."+".O."+"O.."
+                                                                        oxcomp = 2
+                                                                      when "X.."+".OO"+"..."
+                                                                        oxcomp = 3
+                                                                      when "X.."+"OO."+"..."
+                                                                        oxcomp = 5
+                                                                      when "X.."+"O.O"+"..."
+                                                                        oxcomp = 4
+                                                                      when "X.."+"..."+".OO"
+                                                                        oxcomp = 6
+                                                                      when "X.."+"..."+"OO."
+                                                                        oxcomp = 8
+                                                                      when "X.."+"..."+"O.O"
+                                                                        oxcomp = 7
+
+                                                                      when "X.X"+"OO."+"..O"
+                                                                        oxcomp = 1
+                                                                      when "X.X"+".OO"+"..O"
+                                                                        oxcomp = 1
+                                                                      when "X.X"+"O.O"+"..O"
+                                                                        oxcomp = 1
+
+                                                                      when "X.X"+"OO."+".O."
+                                                                        oxcomp = 1
+                                                                      when "X.X"+"O.O"+".O."
+                                                                        oxcomp = 1
+                                                                      when "X.X"+".OO"+".O."
+                                                                        oxcomp = 1
+                                                                      when "X.X"+"OO."+"O.."
+                                                                        oxcomp = 1
+
+
+                                                                      when "X.X"+"O.."+"O.O"
+                                                                        oxcomp = 1
+                                                                      when "X.X"+"O.."+".OO"
+                                                                        oxcomp = 1
+                                                                      when "X.X"+"O.."+"OO."
+                                                                        oxcomp = 1
+
+                                                                      else
+                                                                        oxcomp = 4
+                                                                    end #END CASE - OX - EVALUATE other BOARD states
+
+
+                                                                end
+                                                            end #END - CASE OX - ox7, ox8
+                                                        end
+                                                    end
+                                                end #END - CASE OX - ox4, ox5, ox6
+
+                                            end
+                                        end
+                                    end #END - CASE - OX - Direct BATTLE STOP HUMAN( O ) win
+
+
                                 end
                             end #END - CASE OX - ox7, ox8
                         end
@@ -184,147 +327,6 @@ class CliGuess
     end
 
 
-    #OX - Direct BATTLE STOP HUMAN( O ) win
-    case ox1
-    when "OO."
-        oxcomp = 2
-      when "O.O"
-        oxcomp = 1
-      when ".OO"
-        oxcomp = 0
-      else
-        case ox2
-        when "OO."
-            oxcomp = 5
-          when "O.O"
-            oxcomp = 4
-          when ".OO"
-            oxcomp = 3
-          else
-            case ox3
-            when "OO."
-                oxcomp = 8
-              when "O.O"
-                oxcomp = 5
-              when ".OO"
-                oxcomp = 2
-              else
-
-                #OX - ox4, ox5, ox6
-                case ox4 #(0),(3),(6)
-                when "OO."
-                    oxcomp = 6
-                  when "O.O"
-                    oxcomp = 3
-                  when ".OO"
-                    oxcomp = 0
-                  else
-                    case ox5 #(1),(4),(7)
-                    when "OO."
-                        oxcomp = 7
-                      when "O.O"
-                        oxcomp = 4
-                      when ".OO"
-                        oxcomp = 1
-                      else
-                        case ox6 #(2),(5),(8)
-                        when "OO."
-                            oxcomp = 8
-                          when "O.O"
-                            oxcomp = 5
-                          when ".OO"
-                            oxcomp = 2
-                          else
-                            #OX - ox7, ox8
-                            case ox7 #(0),(4),(8)
-                            when "OO."
-                                oxcomp = 8
-                              when "O.O"
-                                oxcomp = 4
-                              when ".OO"
-                                oxcomp = 0
-                              else
-                                case ox8 #(2),(4),(6)
-                                when "OO."
-                                    oxcomp = 6
-                                  when "O.O"
-                                    oxcomp = 4
-                                  when ".OO"
-                                    oxcomp = 2
-                                  else
-
-                                    #OX - EVALUATE other BOARD states
-                                    case  ox1+ox2+ox3
-                                      when "..."+".O."+"..."
-                                        oxcomp = 0
-                                      when "X.."+"..O"+"..O"
-                                        oxcomp = 2
-                                      when "X.."+"..O"+".O."
-                                        oxcomp = 4
-                                      when "X.."+"..O"+"O.."
-                                        oxcomp = 4
-
-                                      when "X.."+".O."+".O."
-                                        oxcomp = 1
-
-
-                                      when "X.."+"O.."+"O.."
-                                        oxcomp = 4
-                                      when "X.."+".O."+"..O"
-                                        oxcomp = 2
-                                      when "X.."+".O."+"O.."
-                                        oxcomp = 2
-                                      when "X.."+".OO"+"..."
-                                        oxcomp = 3
-                                      when "X.."+"OO."+"..."
-                                        oxcomp = 5
-                                      when "X.."+"O.O"+"..."
-                                        oxcomp = 4
-                                      when "X.."+"..."+".OO"
-                                        oxcomp = 6
-                                      when "X.."+"..."+"OO."
-                                        oxcomp = 8
-                                      when "X.."+"..."+"O.O"
-                                        oxcomp = 7
-
-                                      when "X.X"+"OO."+"..O"
-                                        oxcomp = 1
-                                      when "X.X"+".OO"+"..O"
-                                        oxcomp = 1
-                                      when "X.X"+"O.O"+"..O"
-                                        oxcomp = 1
-
-                                      when "X.X"+"OO."+".O."
-                                        oxcomp = 1
-                                      when "X.X"+"O.O"+".O."
-                                        oxcomp = 1
-                                      when "X.X"+".OO"+".O."
-                                        oxcomp = 1
-                                      when "X.X"+"OO."+"O.."
-                                        oxcomp = 1
-
-
-                                      when "X.X"+"O.."+"O.O"
-                                        oxcomp = 1
-                                      when "X.X"+"O.."+".OO"
-                                        oxcomp = 1
-                                      when "X.X"+"O.."+"OO."
-                                        oxcomp = 1
-
-                                      else
-                                        oxcomp = 4
-                                    end #END CASE - OX - EVALUATE other BOARD states
-
-
-                                end
-                            end #END - CASE OX - ox7, ox8
-                        end
-                    end
-                end #END - CASE OX - ox4, ox5, ox6
-
-            end
-        end
-    end #END - CASE - OX - Direct BATTLE STOP HUMAN( O ) win
 
 
 
