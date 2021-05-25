@@ -86,8 +86,33 @@ class CliGuess
         oxcomp = 8
       when "X.."+"..."+"O.O"
         oxcomp = 7
+
+      when "X.X"+"OO."+"..O"
+        oxcomp = 1
+      when "X.X"+".OO"+"..O"
+        oxcomp = 1
+      when "X.X"+"O.O"+"..O"
+        oxcomp = 1
+
+      when "X.X"+"OO."+".O."
+        oxcomp = 1
+      when "X.X"+"O.O"+".O."
+        oxcomp = 1
+      when "X.X"+".OO"+".O."
+        oxcomp = 1
+      when "X.X"+"OO."+"O.."
+        oxcomp = 1
+
+
+      when "X.X"+"O.."+"O.O"
+        oxcomp = 1
+      when "X.X"+"O.."+".OO"
+        oxcomp = 1
+      when "X.X"+"O.."+"OO."
+        oxcomp = 1
+
       else
-        oxcomp = 5
+        oxcomp = 4
     end
 
     oxcomp = oxcomp + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
