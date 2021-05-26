@@ -74,6 +74,14 @@ class CliGuess
     ox8=bd[2]+bd[4]+bd[6]
 
 
+    puts "OXWARN(CHK_OXWIN(1)):<#{ox1}>"
+    puts "OXWARN(CHK_OXWIN(2)):<#{ox2}>"
+    puts "OXWARN(CHK_OXWIN(3)):<#{ox3}>"
+    puts "OXWARN(CHK_OXWIN(4)):<#{ox4}>"
+    puts "OXWARN(CHK_OXWIN(5)):<#{ox5}>"
+    puts "OXWARN(CHK_OXWIN(6)):<#{ox6}>"
+    puts "OXWARN(CHK_OXWIN(7)):<#{ox7}>"
+    puts "OXWARN(CHK_OXWIN(8)):<#{ox8}>"
 
     case ox1
       when "XXX"
