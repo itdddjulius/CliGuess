@@ -529,14 +529,14 @@ class CliGuess
       empty_board = display_oxboard(".........")
       board = empty_board
 
-      ox1=board[0]+board[1]+board[2]
-      ox2=board[3]+board[4]+board[5]
-      ox3=board[6]+board[7]+board[8]
-      ox4=board[0]+board[3]+board[6]
-      ox5=board[1]+board[4]+board[7]
-      ox6=board[2]+board[5]+board[8]
-      ox7=board[0]+board[4]+board[8]
-      ox8=board[2]+board[4]+board[6]
+      ox[1]=board[0]+board[1]+board[2]
+      ox[2]=board[3]+board[4]+board[5]
+      ox[3]=board[6]+board[7]+board[8]
+      ox[4]=board[0]+board[3]+board[6]
+      ox[5]=board[1]+board[4]+board[7]
+      ox[6]=board[2]+board[5]+board[8]
+      ox[7]=board[0]+board[4]+board[8]
+      ox[8]=board[2]+board[4]+board[6]
 
 
       first_move = get_oxmove( board, "" ) #Logically we MUST OBTAIN AT LEATS (1) MOVE
@@ -548,16 +548,13 @@ class CliGuess
 
         x=1
         while x<=8
-          puts "ox#{x}=#{ox@x}"
-          bdline = ox@x
+          puts "OXEVAL(#{x})-ox[#{ox[x]}]"
           bdlinenum = x
           h = "O"
           c = "X"
-
-          board = get_oxcomp2( board, bdline, bdlinenum, h, c, comp_move )
+          board = get_oxcomp2( board, ox[x], bdlinenum, h, c, comp_move )
           x=x+1
         end
-
         if !chk_oxwin( board )
           #NOW each subsequent move by HUMAN stored in HUMAN_MOVE
           while board == empty_board
@@ -571,13 +568,11 @@ class CliGuess
 
                   x=1
                   while x<=8
-                    puts "ox#{x}=#{ox@x}"
-                    bdline = ox@x
+                    puts "OXEVAL(#{x})-ox[#{ox[x]}]"
                     bdlinenum = x
                     h = "O"
                     c = "X"
-
-                    board = get_oxcomp2( board, bdline, bdlinenum, h, c, comp_move )
+                    board = get_oxcomp2( board, ox[x], bdlinenum, h, c, comp_move )
                     x=x+1
                   end
                 end
