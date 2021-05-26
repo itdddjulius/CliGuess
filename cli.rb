@@ -369,6 +369,9 @@ class CliGuess
   # BEG DEF ox - Play NAUGHTS & CROSSES --- HUMAN vs COMPUTER ============================
   # BEG DEF ==============================================================================
   def self.ox
+
+      make_cls
+      
       empty_board = display_oxboard(".........")
       board = empty_board
 
