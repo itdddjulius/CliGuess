@@ -99,6 +99,46 @@ class CliGuess
       else
         return false
     end
+    case ox4
+      when "XXX"
+        comp_win
+      when "OOO"
+        human_win
+      else
+        return false
+    end
+    case ox5
+      when "XXX"
+        comp_win
+      when "OOO"
+        human_win
+      else
+        return false
+    end
+    case ox6
+      when "XXX"
+        comp_win
+      when "OOO"
+        human_win
+      else
+        return false
+    end
+    case ox7
+      when "XXX"
+        comp_win
+      when "OOO"
+        human_win
+      else
+        return false
+    end
+    case ox8
+      when "XXX"
+        comp_win
+      when "OOO"
+        human_win
+      else
+        return false
+    end
 
     return true
 
