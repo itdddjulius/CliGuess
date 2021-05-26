@@ -30,7 +30,7 @@ class CliGuess
   # END DEF ==============================================================================
 
 
-  def self.run_ox( bd, str)
+  def self.run_ox
     puts ""
     print "Would You Like to Play Again...(Y/N)"
     case input = gets.uppercase.gsub(/[^A-Z]/i, '').to_s
@@ -48,12 +48,14 @@ class CliGuess
     puts "=============================="
     puts "====>{([As USUAL I WIN])}<===="
     puts "=============================="
+    run_ox
   end
 
   def self.human_win
     puts "======================="
     puts "====>{([YOU WIN])}<===="
     puts "======================="
+    run_ox
   end
 
 
