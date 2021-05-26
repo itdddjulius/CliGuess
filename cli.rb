@@ -30,25 +30,30 @@ class CliGuess
   # END DEF ==============================================================================
 
 
-  def self.run_ox
+  def self.run_ox( bd, str)
     puts ""
-    print "As we have an OX winner, would you like to play again<Y/N>"
-    input = gets.uppercase.gsub(/[^A-Z]/i, '').to_s
-    puts ""
+    print "Would You Like to Play Again...(Y/N)"
+    case input = gets.uppercase.gsub(/[^A-Z]/i, '').to_s
+      when "Y"
+        puts "OK....."
+        ox
+      else
+        puts "Goodbye...."
+        puts 'Exiting....'
+    end
   end
+
 
   def self.comp_win
     puts "=============================="
     puts "====>{([As USUAL I WIN])}<===="
     puts "=============================="
-    run_ox
   end
 
   def self.human_win
     puts "======================="
     puts "====>{([YOU WIN])}<===="
     puts "======================="
-    run_ox
   end
 
 
@@ -94,173 +99,6 @@ class CliGuess
     end
 
     return true
-
-  end
-  # END DEF ==============================================================================
-
-
-
-  # BEG DEF ====================================================================================
-  # BEG DEF get_oxcomp2 - EVALUTE COMPUTER move oxcomp
-  # BEG DEF bd=>BOARD, bdline=>BOARD.LINE e.g.{"XX." etc.}, bdlinenum=>{1-8}, h=>{"O"}, c=>{"X"}
-  # BEG DEF ====================================================================================
-  def self.get_oxcomp2( bd, bdline, bdlinenum, h, c, oxcomp )
-    ox1=bd[0]+bd[1]+bd[2]
-    ox2=bd[3]+bd[4]+bd[5]
-    ox3=bd[6]+bd[7]+bd[8]
-    ox4=bd[0]+bd[3]+bd[6]
-    ox5=bd[1]+bd[4]+bd[7]
-    ox6=bd[2]+bd[5]+bd[8]
-    ox7=bd[0]+bd[4]+bd[8]
-    ox8=bd[2]+bd[4]+bd[6]
-
-    #OX - Evaluate BDLINE="..." {e.g ==> "XX."} BDLINENUM=>(1-8)=>{ox1-ox8}  and return SCORE
-    # Cycle through each WINLINE(1-8), evaluating each "..." {e.g. "XX.", "X.X", ".OO", "X.O" etc.}
-    #OX - Evaluate BDLINE="..." {e.g ==> "XX."} BDLINENUM=>(1-8)=>{ox1-ox8}  and return SCORE
-    case bdlinenum
-      when 1
-        case bdline
-          when c+c+"."
-            oxcomp = 2
-          when c+"."+c
-            oxcomp = 1
-          when "."+c+c
-            oxcomp = 0
-          when h+h+"."
-            oxcomp = 2
-          when h+"."+h
-            oxcomp = 1
-          when "."+h+h
-            oxcomp = 0
-        end
-      when 2
-        case bdline
-          when c+c+"."
-            oxcomp = 5
-          when c+"."+c
-            oxcomp = 4
-          when "."+c+c
-            oxcomp = 3
-          when h+h+"."
-            oxcomp = 5
-          when h+"."+h
-            oxcomp = 4
-          when "."+h+h
-            oxcomp = 3
-        end
-      when 3
-        case bdline
-          when c+c+"."
-            oxcomp = 8
-          when c+"."+c
-            oxcomp = 7
-          when "."+c+c
-            oxcomp = 6
-          when h+h+"."
-            oxcomp = 8
-          when h+"."+h
-            oxcomp = 7
-          when "."+h+h
-            oxcomp = 6
-        end
-      when 4
-        case bdline
-          when c+c+"."
-            oxcomp = 6
-          when c+"."+c
-            oxcomp = 3
-          when "."+c+c
-            oxcomp = 0
-          when h+h+"."
-            oxcomp = 6
-          when h+"."+h
-            oxcomp = 3
-          when "."+h+h
-            oxcomp = 0
-        end
-      when 5
-        case bdline
-          when c+c+"."
-            oxcomp = 7
-          when c+"."+c
-            oxcomp = 4
-          when "."+c+c
-            oxcomp = 1
-          when h+h+"."
-            oxcomp = 7
-          when h+"."+h
-            oxcomp = 4
-          when "."+h+h
-            oxcomp = 1
-        end
-      when 6
-        case bdline
-          when c+c+"."
-            oxcomp = 8
-          when c+"."+c
-            oxcomp = 5
-          when "."+c+c
-            oxcomp = 2
-          when h+h+"."
-            oxcomp = 8
-          when h+"."+h
-            oxcomp = 5
-          when "."+h+h
-            oxcomp = 2
-        end
-      when 7
-        case bdline
-          when c+c+"."
-            oxcomp = 5
-          when c+"."+c
-            oxcomp = 4
-          when "."+c+c
-            oxcomp = 3
-          when h+h+"."
-            oxcomp = 5
-          when h+"."+h
-            oxcomp = 4
-          when "."+h+h
-            oxcomp = 3
-        end
-      when 8
-        case bdline
-          when c+c+"."
-            oxcomp = 5
-          when c+"."+c
-            oxcomp = 4
-          when "."+c+c
-            oxcomp = 3
-          when h+h+"."
-            oxcomp = 5
-          when h+"."+h
-            oxcomp = 4
-          when "."+h+h
-            oxcomp = 3
-        end
-      else
-        return bd = get_oxcomp( bd, oxcomp )
-    end
-
-
-      oxcomp = oxcomp + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
-
-      if bd[oxcomp] == "."
-        puts "I Shall Move to <#{oxcomp}>"
-
-        oxcomp = oxcomp - 1 #Ensure we DECREASE HUMAN MOVE OXMOVE by 1 since BOARD=[0,8]
-
-        bd[ oxcomp ] = "X"
-        bd = display_oxboard( bd )
-
-        chk_oxwin( bd )
-
-        return bd
-      else
-        puts "OXEVAL(001):bd[#{oxcomp}]=<#{bd[oxcomp]}>-OCCUPIED"
-        return bd = get_oxcomp( bd, oxcomp )
-      end
-
 
   end
   # END DEF ==============================================================================
@@ -503,6 +341,9 @@ class CliGuess
 
     end  #END - CASE - MAIN CASE
 
+
+
+
     oxcomp = oxcomp + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
 
     puts "I Shall Move to <#{oxcomp}>"
@@ -529,32 +370,13 @@ class CliGuess
       empty_board = display_oxboard(".........")
       board = empty_board
 
-      ox[1]=board[0]+board[1]+board[2]
-      ox[2]=board[3]+board[4]+board[5]
-      ox[3]=board[6]+board[7]+board[8]
-      ox[4]=board[0]+board[3]+board[6]
-      ox[5]=board[1]+board[4]+board[7]
-      ox[6]=board[2]+board[5]+board[8]
-      ox[7]=board[0]+board[4]+board[8]
-      ox[8]=board[2]+board[4]+board[6]
-
-
       first_move = get_oxmove( board, "" ) #Logically we MUST OBTAIN AT LEATS (1) MOVE
       human_move = first_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
       comp_move = -1
       if !chk_oxwin( board )
         print "OK, you moved<#{human_move}> ...... "
-        #board = get_oxcomp( board, comp_move )
+        board = get_oxcomp( board, comp_move )
 
-        x=1
-        while x<=8
-          puts "OXEVAL(#{x})-ox[#{ox[x]}]"
-          bdlinenum = x
-          h = "O"
-          c = "X"
-          board = get_oxcomp2( board, ox[x], bdlinenum, h, c, comp_move )
-          x=x+1
-        end
         if !chk_oxwin( board )
           #NOW each subsequent move by HUMAN stored in HUMAN_MOVE
           while board == empty_board
@@ -564,17 +386,7 @@ class CliGuess
 
                 if !chk_oxwin( board )
                   print "OK, you moved<#{human_move}> ...... "
-                  #board = get_oxcomp( board, comp_move )
-
-                  x=1
-                  while x<=8
-                    puts "OXEVAL(#{x})-ox[#{ox[x]}]"
-                    bdlinenum = x
-                    h = "O"
-                    c = "X"
-                    board = get_oxcomp2( board, ox[x], bdlinenum, h, c, comp_move )
-                    x=x+1
-                  end
+                  board = get_oxcomp( board, comp_move )
                 end
 
             end #END - CASE ==================================================
