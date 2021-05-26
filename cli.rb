@@ -89,63 +89,56 @@ class CliGuess
       when "OOO"
         human_win
       else
-        return false
-    end
-    case ox2
-      when "XXX"
-        comp_win
-      when "OOO"
-        human_win
-      else
-        return false
-    end
-    case ox3
-      when "XXX"
-        comp_win
-      when "OOO"
-        human_win
-      else
-        return false
-    end
-    case ox4
-      when "XXX"
-        comp_win
-      when "OOO"
-        human_win
-      else
-        return false
-    end
-    case ox5
-      when "XXX"
-        comp_win
-      when "OOO"
-        human_win
-      else
-        return false
-    end
-    case ox6
-      when "XXX"
-        comp_win
-      when "OOO"
-        human_win
-      else
-        return false
-    end
-    case ox7
-      when "XXX"
-        comp_win
-      when "OOO"
-        human_win
-      else
-        return false
-    end
-    case ox8
-      when "XXX"
-        comp_win
-      when "OOO"
-        human_win
-      else
-        return false
+        case ox2
+          when "XXX"
+            comp_win
+          when "OOO"
+            human_win
+          else
+            case ox3
+              when "XXX"
+                comp_win
+              when "OOO"
+                human_win
+              else
+                case ox4
+                  when "XXX"
+                    comp_win
+                  when "OOO"
+                    human_win
+                  else
+                    case ox5
+                      when "XXX"
+                        comp_win
+                      when "OOO"
+                        human_win
+                      else
+                        case ox6
+                          when "XXX"
+                            comp_win
+                          when "OOO"
+                            human_win
+                          else
+                            case ox7
+                              when "XXX"
+                                comp_win
+                              when "OOO"
+                                human_win
+                              else
+                                case ox8
+                                  when "XXX"
+                                    comp_win
+                                  when "OOO"
+                                    human_win
+                                  else
+                                    return false
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
     end
 
     return true
@@ -391,9 +384,6 @@ class CliGuess
 
     end  #END - CASE - MAIN CASE
 
-
-
-
     oxcomp = oxcomp + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
 
     puts "I Shall Move to <#{oxcomp}>"
@@ -426,30 +416,22 @@ class CliGuess
       first_move = get_oxmove( board, "" ) #Logically we MUST OBTAIN AT LEATS (1) MOVE
       human_move = first_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
       comp_move = -1
-      if !chk_oxwin( board )
-        print "OK, you moved<#{human_move}> ...... "
-        board = get_oxcomp( board, comp_move )
+      print "OK, you moved<#{human_move}> ...... "
+      board = get_oxcomp( board, comp_move )
 
           #NOW each subsequent move by HUMAN stored in HUMAN_MOVE
-          while !chk_oxwin( board )
+          while !chk_oxwin( board  )
             case human_move = get_oxmove( board, "" )
               when 1..9
                 human_move = human_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
-
-                if !chk_oxwin( board )
+                #if !chk_oxwin( board )
+                  chk_oxwin( board )
                   print "OK, you moved<#{human_move}> ...... "
                   board = get_oxcomp( board, comp_move )
-                end
-
+                #end
             end #END - CASE ==================================================
-
-            if !chk_oxwin( board )
-              puts "~"
-            end
-
           end #END - WHILE ===================================================
 
-      end #END - IF ========================================================
   end
   # END DEF ==============================================================================
 
