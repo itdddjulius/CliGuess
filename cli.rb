@@ -371,7 +371,7 @@ class CliGuess
   def self.ox
 
       make_cls
-      
+
       empty_board = display_oxboard(".........")
       board = empty_board
 
@@ -382,9 +382,8 @@ class CliGuess
         print "OK, you moved<#{human_move}> ...... "
         board = get_oxcomp( board, comp_move )
 
-        if !chk_oxwin( board )
           #NOW each subsequent move by HUMAN stored in HUMAN_MOVE
-          while board == empty_board
+          while !chk_oxwin( board )
             case human_move = get_oxmove( board, "" )
               when 1..9
                 human_move = human_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
@@ -401,7 +400,6 @@ class CliGuess
             end
 
           end #END - WHILE ===================================================
-        end
 
       end #END - IF ========================================================
   end
