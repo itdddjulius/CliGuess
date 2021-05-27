@@ -7,7 +7,7 @@ class CliGuess
 
 
   def self._oxaudit(str1, str2)
-    puts "OXAUDIT - #{str1.uppercase} - #{str2.uppercase}"
+    puts "OXAUDIT - #{str1.upcase.to_s} - #{str2.upcase.to_s}"
   end
 
 #===============================================================================
@@ -42,7 +42,7 @@ class CliGuess
 
     puts ""
     print "Would You Like to Play Again...(Y/N)"
-    case input = gets.uppercase.gsub(/[^A-Z]/i, '').to_s
+    case input = gets.upcase.gsub(/[^A-Z]/i, '').to_s
       when "Y"
         puts "OK....."
         ox
