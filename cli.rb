@@ -6,7 +6,7 @@ require 'optparse'
 class CliGuess
 
 
-  def _oxaudit(str1, str2)
+  def self._oxaudit(str1, str2)
     puts "OXAUDIT - #{str1.uppercase} - #{str2.uppercase}"
   end
 
