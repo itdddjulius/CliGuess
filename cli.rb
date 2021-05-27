@@ -10,6 +10,12 @@ class CliGuess
     puts "OXAUDIT - #{str1.upcase.to_s} - #{str2.upcase.to_s}"
   end
 
+  def self._oxaudit(str1, str2, on)
+    if on 
+      puts "OXAUDIT - #{str1.upcase.to_s} - #{str2.upcase.to_s}"
+    end
+  end
+
 #===============================================================================
 #= NAUGHTS AND CROSSES
 #===============================================================================
@@ -37,6 +43,32 @@ class CliGuess
   # END DEF ==============================================================================
 
 
+
+
+  # BEG DEF ==============================================================================
+  # BEG DEF run_ox( str ) ==> AUDIT OFF ==================================================
+  # BEG DEF ==============================================================================
+  def self.run_ox( str )
+    _oxaudit("ENTER","run_ox",0)
+
+    puts ""
+    print "Would You Like to Play Again...(Y/N)"
+    case input = gets.upcase.gsub(/[^A-Z]/i, '').to_s
+      when "Y"
+        puts "OK....."
+        ox
+      else
+        puts "Goodbye...."
+        puts 'Exiting....'
+    end
+
+    _oxaudit("EXIT","run_ox",0)
+  end
+  # END DEF ==============================================================================
+
+  # BEG DEF ==============================================================================
+  # BEG DEF run_ox ==> AUDIT ON ==================================================
+  # BEG DEF ==============================================================================
   def self.run_ox
     _oxaudit("ENTER","run_ox")
 
@@ -53,6 +85,7 @@ class CliGuess
 
     _oxaudit("EXIT","run_ox")
   end
+  # END DEF ==============================================================================
 
 
   def self.comp_win
@@ -649,7 +682,8 @@ class CliGuess
       #puts "chk_pal( str ) - str=<" + str + ">"
       make_guess( str )
     when '@'
-      get_oxmove( str )
+      #get_oxmove( str )
+      run_ox( str )
     else
       do_chk_pal( str )
     end
