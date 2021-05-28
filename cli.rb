@@ -180,7 +180,7 @@ class CliGuess
 
 
 
-  def is_oxvacant( oxline )
+  def self.is_oxvacant( oxline )
     _oxaudit("ENTER","is_oxvacant( oxline )",0)
 
     case oxline.gsub(/[^.]/i, '').to_s
