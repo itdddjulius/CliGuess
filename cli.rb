@@ -183,15 +183,15 @@ class CliGuess
   def self.is_oxvacant( oxline )
     _oxaudit("ENTER","is_oxvacant( oxline )",0)
 
-    puts "oxline=<#{}> oxline.gsub=<#{oxline.gsub(/[^.]/i, '').to_s}>"
+    puts "oxline=<#{oxline}> oxline.gsub=<#{oxline.gsub(/[^.]/i, '').to_s}>"
 
     case oxline.gsub(/[^.]/i, '').to_s
       when "." || "..."
-        _oxaudit("EXIT","is_oxvacant( oxline )",0)
+        _oxaudit("EXIT(T)","is_oxvacant( oxline )",0)
         return true
     end
 
-    _oxaudit("EXIT","is_oxvacant( oxline )",0)
+    _oxaudit("EXIT(F)","is_oxvacant( oxline )",0)
 
     return false
   end
@@ -608,9 +608,7 @@ class CliGuess
       while oxmove == "~"  do
         oxmove = gets
         oxmove = oxmove.to_s.downcase.gsub(/[^1-9]/i, '').to_i
-        if !is_oxvacant( bd[oxmove] )
-          puts "OXWARN(002):<#{oxmove}> is OCCUPIED <#{oxmove}>=<#{bd[oxmove]}> - Please trye another move..."
-        else
+        if is_oxvacant( bd[oxmove] )
           case oxmove
             when 1..9
               puts "Thank You - Your Move=<#{oxmove}>"
@@ -618,6 +616,8 @@ class CliGuess
               puts "OXWARN(003):<#{oxmove}> Please Enter Your Move-{1 - 9}"
               oxmove = "~"
           end# END - CASE
+        else
+          puts "OXWARN(002):<#{oxmove}> is OCCUPIED <#{oxmove}>=<#{bd[oxmove]}> - Please trye another move..."
         end# END - IF
       end
     end
