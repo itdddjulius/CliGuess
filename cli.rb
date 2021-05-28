@@ -608,7 +608,7 @@ class CliGuess
       while oxmove == "~"  do
         oxmove = gets
         oxmove = oxmove.to_s.downcase.gsub(/[^1-9]/i, '').to_i
-        if is_oxvacant( bd[oxmove] )
+        if is_oxvacant( bd[oxmove-1] ) #Ensure we DECREASE HUMAN MOVE OXMOVE by 1 since BOARD=[0,8]
           case oxmove
             when 1..9
               puts "Thank You - Your Move=<#{oxmove}>"
