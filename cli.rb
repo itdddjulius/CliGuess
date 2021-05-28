@@ -6,12 +6,8 @@ require 'optparse'
 class CliGuess
 
 
-  def self._oxaudit(str1, str2)
-    puts "OXAUDIT - #{str1.upcase.to_s} - #{str2.upcase.to_s}"
-  end
-
   def self._oxaudit(str1, str2, on)
-    if on 
+    if on
       puts "OXAUDIT - #{str1.upcase.to_s} - #{str2.upcase.to_s}"
     end
   end
@@ -23,7 +19,7 @@ class CliGuess
   # BEG DEF display_oxboard - display current OXBOARD state ==============================
   # BEG DEF ==============================================================================
   def self.display_oxboard(bd)
-    _oxaudit("ENTER","display_oxboard(bd)")
+    _oxaudit("ENTER","display_oxboard(bd)",0)
     if bd
       puts " #{bd[0]} | #{bd[1]} | #{bd[2]} "
       puts separator = "-----------"
@@ -36,7 +32,7 @@ class CliGuess
       puts "OXWARN(001):The BOARD must exist prior to display"
     end
 
-    _oxaudit("EXIT","display_oxboard(bd)")
+    _oxaudit("EXIT","display_oxboard(bd)",0)
 
     return bd
   end
@@ -66,48 +62,28 @@ class CliGuess
   end
   # END DEF ==============================================================================
 
-  # BEG DEF ==============================================================================
-  # BEG DEF run_ox ==> AUDIT ON ==================================================
-  # BEG DEF ==============================================================================
-  def self.run_ox
-    _oxaudit("ENTER","run_ox")
-
-    puts ""
-    print "Would You Like to Play Again...(Y/N)"
-    case input = gets.upcase.gsub(/[^A-Z]/i, '').to_s
-      when "Y"
-        puts "OK....."
-        ox
-      else
-        puts "Goodbye...."
-        puts 'Exiting....'
-    end
-
-    _oxaudit("EXIT","run_ox")
-  end
-  # END DEF ==============================================================================
 
 
   def self.comp_win
-    _oxaudit("ENTER","comp_win")
+    _oxaudit("ENTER","comp_win",0)
 
     puts "=============================="
     puts "====>{([As USUAL I WIN])}<===="
     puts "=============================="
-    run_ox
+    run_ox( 1 )
 
-    _oxaudit("EXIT","comp_win")
+    _oxaudit("EXIT","comp_win",0)
   end
 
   def self.human_win
-    _oxaudit("ENTER","human_win")
+    _oxaudit("ENTER","human_win",0)
 
     puts "======================="
     puts "====>{([YOU WIN])}<===="
     puts "======================="
-    run_ox
+    run_ox( 1 )
 
-    _oxaudit("EXIT","human_win")
+    _oxaudit("EXIT","human_win",0)
   end
 
 
@@ -116,7 +92,7 @@ class CliGuess
   # BEG DEFchk_oxwin - DETERMINE if OXBOARD in WIN STATE =================================
   # BEG DEF ==============================================================================
   def self.chk_oxwin( bd )
-    _oxaudit("ENTER","chk_oxwin( bd )")
+    _oxaudit("ENTER","chk_oxwin( bd )",0)
 
     ox1=bd[0]+bd[1]+bd[2]
     ox2=bd[3]+bd[4]+bd[5]
@@ -185,7 +161,7 @@ class CliGuess
                                   when "OOO"
                                     human_win
                                   else
-                                    _oxaudit("EXIT","chk_oxwin( bd )")
+                                    _oxaudit("EXIT","chk_oxwin( bd )",0)
                                     return false
                                 end
                             end
@@ -196,7 +172,7 @@ class CliGuess
         end
     end
 
-    _oxaudit("EXIT","chk_oxwin( bd )")
+    _oxaudit("EXIT","chk_oxwin( bd )",0)
     return true
 
   end
@@ -205,15 +181,15 @@ class CliGuess
 
 
   def is_oxvacant( oxline )
-    _oxaudit("ENTER","get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)")
+    _oxaudit("ENTER","is_oxvacant( oxline )",0)
 
     case oxline.gsub(/[^.]/i, '').to_s
-      when "."
-        _oxaudit("ENTER","get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)")
+      when "." || "..."
+        _oxaudit("EXIT","is_oxvacant( oxline )",0)
         return true
     end
 
-    _oxaudit("ENTER","get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)")
+    _oxaudit("EXIT","is_oxvacant( oxline )",0)
 
     return false
   end
@@ -224,7 +200,7 @@ class CliGuess
   # BEG DEF bd=BOARD, oxcomp=COMPUTER_MOVE, oxnum={1-8}, oxi={0,1,2 etc}, oxj={0,1,2 etc}, oxk={0,1,2 etc}
   # BEG DEF ==============================================================================================
   def self.get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)
-    _oxaudit("ENTER","get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)")
+    _oxaudit("ENTER","get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)",0)
 
     ox1=bd[0]+bd[1]+bd[2]
     ox2=bd[3]+bd[4]+bd[5]
@@ -255,7 +231,7 @@ class CliGuess
 
     chk_oxwin( bd )
 
-    _oxaudit("EXIT","get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)")
+    _oxaudit("EXIT","get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)",0)
 
     return bd
 
@@ -267,7 +243,7 @@ class CliGuess
   # BEG DEF get_oxcomp - EVALUTE COMPUTER move oxcomp ====================================
   # BEG DEF ==============================================================================
   def self.get_oxcomp( bd, oxcomp, oxlevel )
-    _oxaudit("ENTER","get_oxcomp( bd, oxcomp )")
+    _oxaudit("ENTER","get_oxcomp( bd, oxcomp, oxlevel )",0)
 
     ox1=bd[0]+bd[1]+bd[2]
     ox2=bd[3]+bd[4]+bd[5]
@@ -558,7 +534,7 @@ class CliGuess
 
     chk_oxwin( bd )
 
-    _oxaudit("EXIT","get_oxcomp( bd, oxcomp )")
+    _oxaudit("EXIT","get_oxcomp( bd, oxcomp )",0)
 
     return bd
   end
@@ -570,7 +546,7 @@ class CliGuess
   # BEG DEF ox - Play NAUGHTS & CROSSES --- HUMAN vs COMPUTER ============================
   # BEG DEF ==============================================================================
   def self.ox
-    _oxaudit("ENTER","ox")
+    _oxaudit("ENTER","ox",0)
 
       make_cls
 
@@ -596,7 +572,7 @@ class CliGuess
             end #END - CASE ==================================================
           end #END - WHILE ===================================================
 
-  _oxaudit("EXIT","ox")
+  _oxaudit("EXIT","ox",0)
   end
   # END DEF ==============================================================================
 
@@ -607,7 +583,7 @@ class CliGuess
   # BEG DEF get_oxmove - Obtain HUMANS move either via --name [VAR] or input =============
   # BEG DEF ==============================================================================
   def self.get_oxmove( bd, str )
-    _oxaudit("ENTER","get_oxmove( bd, str )")
+    _oxaudit("ENTER","get_oxmove( bd, str )",0)
 
     options = {}
     OptionParser.new do |parser|
@@ -627,16 +603,20 @@ class CliGuess
 
       puts "Please Enter Your Move-{1 - 9}"
       oxmove = "~"
-      while oxmove == "~" do
+      while oxmove == "~"  do
         oxmove = gets
         oxmove = oxmove.to_s.downcase.gsub(/[^1-9]/i, '').to_i
-        case oxmove
-        when 1..9
-            puts "Thank You - Your Move=<#{oxmove}>"
-          else
-            puts "OXWARN(002):<#{oxmove}> Please Enter Your Move-{1 - 9}"
-            oxmove = "~"
-        end
+        if !is_oxvacant( bd[oxmove] )
+          puts "OXWARN(002):<#{oxmove}> is OCCUPIED <#{oxmove}>=<#{bd[oxmove]}> - Please trye another move..."
+        else
+          case oxmove
+            when 1..9
+              puts "Thank You - Your Move=<#{oxmove}>"
+            else
+              puts "OXWARN(003):<#{oxmove}> Please Enter Your Move-{1 - 9}"
+              oxmove = "~"
+          end# END - CASE
+        end# END - IF
       end
     end
 
@@ -645,7 +625,7 @@ class CliGuess
     bd[ oxmove ]="O"
     bd = display_oxboard( bd )
 
-    _oxaudit("EXIT","get_oxmove( bd, str )")
+    _oxaudit("EXIT","get_oxmove( bd, str )",0)
 
     return oxmove
   end
