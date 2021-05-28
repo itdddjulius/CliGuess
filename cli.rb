@@ -216,9 +216,130 @@ class CliGuess
     oxwinline = bd[oxi]+bd[oxj]+bd[oxk]
 
     case oxwinline
-    when "XX."
+      when "XX."
+        case oxnum
+          when 1
+            oxcomp = 2
+          when 2
+            oxcomp = 5
+          when 3
+            oxcomp = 8
+          when 4
+            oxcomp = 6
+          when 5
+            oxcomp = 7
+          when 6
+            oxcomp = 8
+          when 7
+            oxcomp = 8
+          when 8
+            oxcomp = 6
+          else
+        end
+      when ".XX"
+        case oxnum
+          when 1
+            oxcomp = 0
+          when 2
+            oxcomp = 3
+          when 3
+            oxcomp = 6
+          when 4
+            oxcomp = 0
+          when 5
+            oxcomp = 1
+          when 6
+            oxcomp = 2
+          when 7
+            oxcomp = 0
+          when 8
+            oxcomp = 2
+          else
+        end
+      when "X.X"
+        case oxnum
+          when 1
+            oxcomp = 1
+          when 2
+            oxcomp = 4
+          when 3
+            oxcomp = 7
+          when 4
+            oxcomp = 3
+          when 5
+            oxcomp = 4
+          when 6
+            oxcomp = 5
+          when 7
+            oxcomp = 4
+          when 8
+            oxcomp = 4
+          else
+        end
+      when "X.."
+        case oxnum
+          when 1
+            oxcomp = 1
+          when 2
+            oxcomp = 4
+          when 3
+            oxcomp = 7
+          when 4
+            oxcomp = 3
+          when 5
+            oxcomp = 4
+          when 6
+            oxcomp = 5
+          when 7
+            oxcomp = 7
+          when 8
+            oxcomp = 4
+          else
+        end
+      when ".X."
+        case oxnum
+          when 1
+            oxcomp = 0
+          when 2
+            oxcomp = 3
+          when 3
+            oxcomp = 6
+          when 4
+            oxcomp = 0
+          when 5
+            oxcomp = 1
+          when 6
+            oxcomp = 2
+          when 7
+            oxcomp = 0
+          when 8
+            oxcomp = 2
+          else
+        end
+      when "..X"
+        case oxnum
+          when 1
+            oxcomp = 0
+          when 2
+            oxcomp = 3
+          when 3
+            oxcomp = 6
+          when 4
+            oxcomp = 0
+          when 5
+            oxcomp = 1
+          when 6
+            oxcomp = 2
+          when 7
+            oxcomp = 0
+          when 8
+            oxcomp = 2
+          else
+        end
+
+
       else
-        bd = get_oxcomp( bd, oxcomp )
+        bd = get_oxcomp( bd, oxcomp, 1 )
     end
 
 
@@ -257,7 +378,7 @@ class CliGuess
     ox8=bd[2]+bd[4]+bd[6]
 
   if oxlevel==2
-      #bd=get_oxcomp2(bd, oxcomp, 1, oxi, oxj, oxk)
+      #bd=get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)
 
       case is_oxvacant( ox1 )
         when true
@@ -499,7 +620,20 @@ class CliGuess
                                                                         oxcomp = 1
 
                                                                       else
-                                                                        oxcomp = 4
+                                                                        case ox4+ox8
+                                                                          when "X.."+".X."
+                                                                            oxcomp = 6
+                                                                          when "X.."+"..X"
+                                                                            oxcomp = 4
+                                                                          when "X.."+"X.."
+                                                                            oxcomp = 4
+                                                                          when ".X."+".X."
+                                                                            oxcomp = 0
+                                                                          when ".X."+"..X"
+                                                                            oxcomp = 0
+                                                                          else
+                                                                            oxcomp = 4
+                                                                        end #END - CASE
                                                                     end #END CASE - OX - EVALUATE other BOARD states
 
 
@@ -525,6 +659,7 @@ class CliGuess
 
   end #END - IF ( OXLEVEL )
 
+  if is_oxvacant( bd[ oxcomp ])
     oxcomp = oxcomp + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
 
     puts "I Shall Move to <#{oxcomp}>"
@@ -539,6 +674,9 @@ class CliGuess
     _oxaudit("EXIT","get_oxcomp( bd, oxcomp )",0)
 
     return bd
+  else
+    bd = get_oxcomp( bd, oxcomp, 2 )
+  end #END - IF
   end
   # END DEF ==============================================================================
 
@@ -618,6 +756,7 @@ class CliGuess
           end# END - CASE
         else
           puts "OXWARN(002):<#{oxmove}> is OCCUPIED <#{oxmove}>=<#{bd[oxmove]}> - Please trye another move..."
+          oxmove = "~"
         end# END - IF
       end
     end
