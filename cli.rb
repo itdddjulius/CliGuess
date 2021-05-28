@@ -183,6 +183,8 @@ class CliGuess
   def self.is_oxvacant( oxline )
     _oxaudit("ENTER","is_oxvacant( oxline )",0)
 
+    puts "oxline=<#{}> oxline.gsub=<#{oxline.gsub(/[^.]/i, '').to_s}>"
+
     case oxline.gsub(/[^.]/i, '').to_s
       when "." || "..."
         _oxaudit("EXIT","is_oxvacant( oxline )",0)
