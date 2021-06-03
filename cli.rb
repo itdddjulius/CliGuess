@@ -8,7 +8,7 @@ class CliGuess
 
   def self._oxaudit(str1, str2, on)
     if on
-      puts "OXAUDIT - #{str1.upcase.to_s} - #{str2.upcase.to_s}"
+      #puts "OXAUDIT - #{str1.upcase.to_s} - #{str2.upcase.to_s}"
       File.write('cli_OUT.ifo', "OXAUDIT - #{str1.upcase.to_s} - #{str2.upcase.to_s}\n", mode: 'a')
     end
   end
@@ -521,8 +521,12 @@ end
 
     oxcomp = oxcomp + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
 
-    puts "I Shall Move to <#{oxcomp}>"
-    _oxaudit("I Shall Move to <#{oxcomp}>","get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)",0)
+    if ! chk_oxdraw( bd )
+      puts "I Shall Move to <#{oxcomp}>"
+      _oxaudit("I Shall Move to <#{oxcomp}>","get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)",0)
+    else
+      human_comp_draw
+    end
 
     oxcomp = oxcomp - 1 #Ensure we DECREASE HUMAN MOVE OXMOVE by 1 since BOARD=[0,8]
 
@@ -844,8 +848,12 @@ end
   if is_oxvacant( bd[ oxcomp ])
     oxcomp = oxcomp + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
 
-    puts "I Shall Move to <#{oxcomp}>"
-    _oxaudit("I Shall Move to <#{oxcomp}>","get_oxcomp( bd, oxcomp )",0)
+    if ! chk_oxdraw( bd )
+      puts "I Shall Move to <#{oxcomp}>"
+      _oxaudit("I Shall Move to <#{oxcomp}>","get_oxcomp( bd, oxcomp )",0)
+    else
+      human_comp_draw
+    end
 
     oxcomp = oxcomp - 1 #Ensure we DECREASE HUMAN MOVE OXMOVE by 1 since BOARD=[0,8]
 
