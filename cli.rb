@@ -593,7 +593,8 @@ end
                                     when true
                                       bd=get_oxcomp2(bd, oxcomp, 8, 2, 4, 6)
                                     else
-                                      bd=get_oxcomp( bd, oxcomp, 1 )
+                                      human_comp_draw
+                                      #bd=get_oxcomp( bd, oxcomp, 1 )
                                   end
                               end
                           end
