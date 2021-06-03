@@ -143,7 +143,6 @@ class CliGuess
     _oxaudit("OXWARN(CHK_OXDRAW(7)):<#{ox7}>","chk_oxdraw( bd )",0)
     _oxaudit("OXWARN(CHK_OXDRAW(8)):<#{ox8}>","chk_oxdraw( bd )",0)
 
-    if ! chk_oxwin( bd )
       case is_oxfull( ox1 )
         when TRUE
           case is_oxfull( ox2 )
@@ -174,7 +173,6 @@ class CliGuess
               end
           end
       end
-    end #END - IF
 
 end
 
