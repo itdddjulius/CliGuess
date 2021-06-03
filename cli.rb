@@ -9,6 +9,7 @@ class CliGuess
   def self._oxaudit(str1, str2, on)
     if on
       puts "OXAUDIT - #{str1.upcase.to_s} - #{str2.upcase.to_s}"
+      File.write('cli_OUT.ifo', "OXAUDIT - #{str1.upcase.to_s} - #{str2.upcase.to_s}\n", mode: 'a')
     end
   end
 
@@ -27,9 +28,16 @@ class CliGuess
       puts separator
       puts " #{bd[6]} | #{bd[7]} | #{bd[8]} "
       puts "  "
-      puts "  "
+      _oxaudit( "  ","display_oxboard(bd)",0)
+      _oxaudit( " #{bd[0]} | #{bd[1]} | #{bd[2]} ","display_oxboard(bd)",0)
+      _oxaudit( separator = "-----------","display_oxboard(bd)",0)
+      _oxaudit( " #{bd[3]} | #{bd[4]} | #{bd[5]} ","display_oxboard(bd)",0)
+      _oxaudit( separator,"display_oxboard(bd)",0)
+      _oxaudit( " #{bd[6]} | #{bd[7]} | #{bd[8]} ","display_oxboard(bd)",0)
+      _oxaudit( "  ","display_oxboard(bd)",0)
     else
       puts "OXWARN(001):The BOARD must exist prior to display"
+      _oxaudit( "OXWARN(001):The BOARD must exist prior to display","display_oxboard(bd)",0)
     end
 
     _oxaudit("EXIT","display_oxboard(bd)",0)
@@ -64,6 +72,18 @@ class CliGuess
 
 
 
+  def self.human_comp_draw
+    _oxaudit("ENTER","human_comp_draw",0)
+
+    puts "=============================="
+    puts "=========>{([DRAW])}<========="
+    puts "=============================="
+    run_ox( 1 )
+
+    _oxaudit("EXIT","human_comp_draw",0)
+  end
+
+
   def self.comp_win
     _oxaudit("ENTER","comp_win",0)
 
@@ -86,6 +106,77 @@ class CliGuess
     _oxaudit("EXIT","human_win",0)
   end
 
+
+
+
+  # BEG DEF ==============================================================================
+  # BEG DEFchk_oxdraw - DETERMINE if OXBOARD in DRAW STATE ===============================
+  # BEG DEF ==============================================================================
+  def self.chk_oxdraw( bd )
+    _oxaudit("ENTER","chk_oxdraw( bd )",0)
+
+    ox1=bd[0]+bd[1]+bd[2]
+    ox2=bd[3]+bd[4]+bd[5]
+    ox3=bd[6]+bd[7]+bd[8]
+    ox4=bd[0]+bd[3]+bd[6]
+    ox5=bd[1]+bd[4]+bd[7]
+    ox6=bd[2]+bd[5]+bd[8]
+    ox7=bd[0]+bd[4]+bd[8]
+    ox8=bd[2]+bd[4]+bd[6]
+
+
+    puts "OXWARN(CHK_OXDRAW(1)):<#{ox1}>"
+    puts "OXWARN(CHK_OXDRAW(2)):<#{ox2}>"
+    puts "OXWARN(CHK_OXDRAW(3)):<#{ox3}>"
+    puts "OXWARN(CHK_OXDRAW(4)):<#{ox4}>"
+    puts "OXWARN(CHK_OXDRAW(5)):<#{ox5}>"
+    puts "OXWARN(CHK_OXDRAW(6)):<#{ox6}>"
+    puts "OXWARN(CHK_OXDRAW(7)):<#{ox7}>"
+    puts "OXWARN(CHK_OXDRAW(8)):<#{ox8}>"
+
+    _oxaudit("OXWARN(CHK_OXDRAW(1)):<#{ox1}>","chk_oxdraw( bd )",0)
+    _oxaudit("OXWARN(CHK_OXDRAW(2)):<#{ox2}>","chk_oxdraw( bd )",0)
+    _oxaudit("OXWARN(CHK_OXDRAW(3)):<#{ox3}>","chk_oxdraw( bd )",0)
+    _oxaudit("OXWARN(CHK_OXDRAW(4)):<#{ox4}>","chk_oxdraw( bd )",0)
+    _oxaudit("OXWARN(CHK_OXDRAW(5)):<#{ox5}>","chk_oxdraw( bd )",0)
+    _oxaudit("OXWARN(CHK_OXDRAW(6)):<#{ox6}>","chk_oxdraw( bd )",0)
+    _oxaudit("OXWARN(CHK_OXDRAW(7)):<#{ox7}>","chk_oxdraw( bd )",0)
+    _oxaudit("OXWARN(CHK_OXDRAW(8)):<#{ox8}>","chk_oxdraw( bd )",0)
+
+    if ! chk_oxwin( bd )
+      case is_oxfull( ox1 )
+        when TRUE
+          case is_oxfull( ox2 )
+            when TRUE
+              case is_oxfull( ox3 )
+                when TRUE
+                  case is_oxfull( ox4 )
+                    when TRUE
+                      case is_oxfull( ox5 )
+                        when TRUE
+                          case is_oxfull( ox6 )
+                            when TRUE
+                              case is_oxfull( ox7 )
+                                when TRUE
+                                  case is_oxfull( ox8 )
+                                    when TRUE
+                                      human_comp_draw
+                                      _oxaudit("EXIT(T)","chk_oxdraw( bd )",0)
+                                      return true
+                                    else
+                                      _oxaudit("EXIT(F)","chk_oxdraw( bd )",0)
+                                      return false
+                                  end
+                              end
+                          end
+                      end
+                  end
+              end
+          end
+      end
+    end #END - IF
+
+end
 
 
   # BEG DEF ==============================================================================
@@ -112,6 +203,15 @@ class CliGuess
     puts "OXWARN(CHK_OXWIN(6)):<#{ox6}>"
     puts "OXWARN(CHK_OXWIN(7)):<#{ox7}>"
     puts "OXWARN(CHK_OXWIN(8)):<#{ox8}>"
+
+    _oxaudit("OXWARN(CHK_OXWIN(1)):<#{ox1}>","chk_oxwin( bd )",0)
+    _oxaudit("OXWARN(CHK_OXWIN(2)):<#{ox2}>","chk_oxwin( bd )",0)
+    _oxaudit("OXWARN(CHK_OXWIN(3)):<#{ox3}>","chk_oxwin( bd )",0)
+    _oxaudit("OXWARN(CHK_OXWIN(4)):<#{ox4}>","chk_oxwin( bd )",0)
+    _oxaudit("OXWARN(CHK_OXWIN(5)):<#{ox5}>","chk_oxwin( bd )",0)
+    _oxaudit("OXWARN(CHK_OXWIN(6)):<#{ox6}>","chk_oxwin( bd )",0)
+    _oxaudit("OXWARN(CHK_OXWIN(7)):<#{ox7}>","chk_oxwin( bd )",0)
+    _oxaudit("OXWARN(CHK_OXWIN(8)):<#{ox8}>","chk_oxwin( bd )",0)
 
     case ox1
       when "XXX"
@@ -161,7 +261,8 @@ class CliGuess
                                   when "OOO"
                                     human_win
                                   else
-                                    _oxaudit("EXIT","chk_oxwin( bd )",0)
+                                    _oxaudit("EXIT(F)","chk_oxwin( bd )",0)
+                                    chk_oxdraw( bd )
                                     return false
                                 end
                             end
@@ -172,7 +273,7 @@ class CliGuess
         end
     end
 
-    _oxaudit("EXIT","chk_oxwin( bd )",0)
+    _oxaudit("EXIT(T)","chk_oxwin( bd )",0)
     return true
 
   end
@@ -180,18 +281,73 @@ class CliGuess
 
 
 
+  def self.is_oxfull( oxline )
+    _oxaudit("ENTER","is_oxfull( oxline )",0)
+
+    puts "oxline=<#{oxline}> oxline.gsub=<#{oxline.upcase.to_s}>"
+    _oxaudit("oxline=<#{oxline}> oxline.gsub=<#{oxline.upcase.to_s}>","is_oxfull( oxline )",0)
+
+    case oxline.upcase.to_s
+    when "XXO" || "XOX" || "OXX" || "XOO" || "OXO" || "OOX" #JO - Deliberately NOT {xxx or ooo} WINLINES
+        _oxaudit("EXIT(T)","is_oxfull( oxline )",0)
+        return true
+    end
+
+    _oxaudit("EXIT(F)","is_oxfull( oxline )",0)
+
+    return false
+  end
+
+
+  def self.is_oxblank( oxline )
+    _oxaudit("ENTER","is_oxblank( oxline )",0)
+
+    puts "oxline=<#{oxline}> oxline.gsub=<#{oxline.upcase.to_s}>"
+    _oxaudit("oxline=<#{oxline}> oxline.gsub=<#{oxline.upcase.to_s}>","is_oxblank( oxline )",0)
+
+    case oxline.upcase.to_s
+    when "..."
+        _oxaudit("EXIT(T)","is_oxblank( oxline )",0)
+        return true
+    end
+
+    _oxaudit("EXIT(F)","is_oxblank( oxline )",0)
+
+    return false
+  end
+
+
+
   def self.is_oxvacant( oxline )
     _oxaudit("ENTER","is_oxvacant( oxline )",0)
 
-    puts "oxline=<#{oxline}> oxline.gsub=<#{oxline.upcase.gsub(/[^.OX]/i, '').to_s}>"
+    puts "oxline=<#{oxline}> oxline.gsub=<#{oxline.upcase.to_s}>"
+    _oxaudit("oxline=<#{oxline}> oxline.gsub=<#{oxline.upcase.to_s}>","is_oxvacant( oxline )",0)
 
-    case oxline.upcase.gsub(/[^.OX]/i, '').to_s
-      when "." || "..."
+    case oxline.upcase.to_s
+    when ".","...","XX.","X.X",".XX","OO.","O.O",".OO","X.O",".XO","O.X",".OX","XO.","OX."
         _oxaudit("EXIT(T)","is_oxvacant( oxline )",0)
         return true
     end
 
     _oxaudit("EXIT(F)","is_oxvacant( oxline )",0)
+
+    return false
+  end
+
+  def self.is_oxoccupied( oxline )
+    _oxaudit("ENTER","is_oxoccupied( oxline )",0)
+
+    puts "oxline=<#{oxline}> oxline.gsub=<#{oxline.upcase.to_s}>"
+    _oxaudit("oxline=<#{oxline}> oxline.gsub=<#{oxline.upcase.to_s}>","is_oxoccupied( oxline )",0)
+
+    case oxline.upcase.to_s
+    when "X" || "O" || "XXX" || "OOO" || "XXO" || "XOX" || "OXX" || "XOO" || "OXO" || "OOX"
+        _oxaudit("EXIT(T)","is_oxoccupied( oxline )",0)
+        return true
+    end
+
+    _oxaudit("EXIT(F)","is_oxoccupied( oxline )",0)
 
     return false
   end
@@ -214,8 +370,30 @@ class CliGuess
     ox8=bd[2]+bd[4]+bd[6]
 
     oxwinline = bd[oxi]+bd[oxj]+bd[oxk]
+    puts "OXWARN(GET_OXCOMP2(oxwinline)):<#{bd[oxi]}+#{bd[oxj]}+#{bd[oxk]}>"
+    _oxaudit("OXWARN(GET_OXCOMP2(oxwinline)):<#{bd[oxi]}+#{bd[oxj]}+#{bd[oxk]}>","get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)",0)
 
     case oxwinline
+      when "XO."
+        case oxnum
+          when 1
+            oxcomp = 2
+          when 2
+            oxcomp = 5
+          when 3
+            oxcomp = 8
+          when 4
+            oxcomp = 6
+          when 5
+            oxcomp = 7
+          when 6
+            oxcomp = 8
+          when 7
+            oxcomp = 8
+          when 8
+            oxcomp = 6
+          else
+        end
       when "XX."
         case oxnum
           when 1
@@ -346,6 +524,7 @@ class CliGuess
     oxcomp = oxcomp + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
 
     puts "I Shall Move to <#{oxcomp}>"
+    _oxaudit("I Shall Move to <#{oxcomp}>","get_oxcomp2(bd, oxcomp, oxnum, oxi, oxj, oxk)",0)
 
     oxcomp = oxcomp - 1 #Ensure we DECREASE HUMAN MOVE OXMOVE by 1 since BOARD=[0,8]
 
@@ -421,6 +600,11 @@ class CliGuess
               end
           end
       end
+
+      #J.O. N.B. COMPUTER has already made a move, via OXCOMP2(LEVEL==2)
+      _oxaudit("EXIT","get_oxcomp( bd, oxcomp )",0)
+      return bd
+      #J.O. N.B. COMPUTER has already made a move, via OXCOMP2(LEVEL==2)
 
   else
     #OX - Direct BATTLE MAKE COMP( X ) win
@@ -663,6 +847,7 @@ class CliGuess
     oxcomp = oxcomp + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
 
     puts "I Shall Move to <#{oxcomp}>"
+    _oxaudit("I Shall Move to <#{oxcomp}>","get_oxcomp( bd, oxcomp )",0)
 
     oxcomp = oxcomp - 1 #Ensure we DECREASE HUMAN MOVE OXMOVE by 1 since BOARD=[0,8]
 
@@ -697,6 +882,7 @@ class CliGuess
       human_move = first_move + 1 #Ensure we INCREASE COMPUTER MOVE OXCOMP by 1 since BOARD=[0,8]
       comp_move = -1
       print "OK, you moved<#{human_move}> ...... "
+      _oxaudit("OK, you moved<#{human_move}> ...... ","ox",0)
       board = get_oxcomp( board, comp_move, 1 )
 
           #NOW each subsequent move by HUMAN stored in HUMAN_MOVE
@@ -707,6 +893,7 @@ class CliGuess
                 #if !chk_oxwin( board )
                   chk_oxwin( board )
                   print "OK, you moved<#{human_move}> ...... "
+                  _oxaudit("OK, you moved<#{human_move}> ...... ","ox",0)
                   board = get_oxcomp( board, comp_move, 1 )
                 #end
             end #END - CASE ==================================================
@@ -742,6 +929,7 @@ class CliGuess
     else
 
       puts "Please Enter Your Move-{1 - 9}"
+      _oxaudit("Please Enter Your Move-{1 - 9}","get_oxmove( bd, str )",0)
       oxmove = "~"
       while oxmove == "~"  do
         oxmove = gets
@@ -750,12 +938,15 @@ class CliGuess
           case oxmove
             when 1..9
               puts "Thank You - Your Move=<#{oxmove}>"
+              _oxaudit("Thank You - Your Move=<#{oxmove}>","get_oxmove( bd, str )",0)
             else
               puts "OXWARN(003):<#{oxmove}> Please Enter Your Move-{1 - 9}"
+              _oxaudit("OXWARN(003):<#{oxmove}> Please Enter Your Move-{1 - 9}","get_oxmove( bd, str )",0)
               oxmove = "~"
           end# END - CASE
         else
           puts "OXWARN(002):<#{oxmove}> is OCCUPIED <#{oxmove}>=<#{bd[oxmove]}> - Please trye another move..."
+          _oxaudit("OXWARN(002):<#{oxmove}> is OCCUPIED <#{oxmove}>=<#{bd[oxmove]}> - Please trye another move...","get_oxmove( bd, str )",0)
           oxmove = "~"
         end# END - IF
       end
